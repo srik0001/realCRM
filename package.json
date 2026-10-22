@@ -6,21 +6,40 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "rules:build": "node scripts/generate-rules.mjs",
+    "rules:deploy": "npx firebase-tools deploy --only database",
+    "emulators": "npx firebase-tools emulators:start --only auth,database --project demo-realcrm",
+    "seed": "tsx scripts/seed.ts",
+    "test:rules": "tsx scripts/test-rules.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.9.2",
+    "clsx": "^2.1.1",
+    "firebase": "^13.1.0",
+    "firebase-admin": "^14.5.0",
+    "lucide-react": "^1.61.0",
     "next": "16.4.2",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "react-hook-form": "^7.90.0",
+    "server-only": "^0.0.1",
+    "sonner": "^2.0.8",
+    "tailwind-merge": "^3.7.0",
+    "zod": "^4.6.7",
+    "zustand": "^5.0.16"
   },
   "devDependencies": {
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^18.0.9",
     "eslint": "^9",
     "eslint-config-next": "16.4.2",
     "tailwindcss": "^4",
+    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
