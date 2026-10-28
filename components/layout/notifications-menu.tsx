@@ -34,12 +34,12 @@ export function NotificationsMenu() {
         <button
           type="button"
           onClick={toggle}
-          className="relative rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+          className="relative flex h-11 w-11 items-center justify-center rounded-full border border-border bg-card text-slate-600 shadow-sm hover:bg-slate-100 hover:text-slate-900"
           aria-label={`Notifications${count ? ` (${count} new)` : ""}`}
         >
           <Bell className="h-5 w-5" />
           {count > 0 && (
-            <span className="absolute right-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-red-500 px-1 text-[10px] font-semibold text-white">
+            <span className="absolute -right-0.5 -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-[var(--status-lost)] ring-2 ring-background px-1 text-[10px] font-semibold text-white">
               {count > 9 ? "9+" : count}
             </span>
           )}
