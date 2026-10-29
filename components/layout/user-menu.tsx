@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { ChevronDown, LogOut, Settings } from "lucide-react";
+import { ChevronsUpDown, LogOut, Settings } from "lucide-react";
 import { useAuth, useCurrentUser } from "@/lib/auth/auth-context";
 import { useCrmData } from "@/lib/database/crm-data-context";
-import { Avatar } from "@/components/ui/avatar";
 import { Dropdown, MenuItem } from "@/components/ui/dropdown";
 import { ROLE_LABELS } from "@/types";
+import { initials } from "@/utils/format";
 
 export function UserMenu() {
   const me = useCurrentUser();
@@ -21,14 +21,16 @@ export function UserMenu() {
           type="button"
           onClick={toggle}
           aria-expanded={open}
-          className="flex items-center gap-2 rounded-lg p-1 pr-2 hover:bg-slate-100"
+          className="flex items-center gap-2 gap-3 rounded-full p-1 pr-3 hover:bg-slate-100"
         >
-          <Avatar name={me.fullName} />
+          <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary text-sm font-semibold text-primary-foreground" aria-hidden>
+            {initials(me.fullName)}
+          </span>
           <span className="hidden text-left md:block">
-            <span className="block text-sm font-medium leading-tight text-slate-900">{me.fullName}</span>
+            <span className="block font-display text-[15px] font-semibold leading-tight text-slate-900">{me.fullName}</span>
             <span className="block text-xs leading-tight text-slate-500">{ROLE_LABELS[me.role]}</span>
           </span>
-          <ChevronDown className="hidden h-4 w-4 text-slate-400 md:block" />
+          <ChevronsUpDown className="hidden h-4 w-4 text-slate-400 md:block" />
         </button>
       )}
     >

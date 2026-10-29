@@ -1,48 +1,47 @@
 import type { LucideIcon } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/utils/cn";
-
-const accents = {
-  blue: "bg-blue-50 text-blue-600",
-  green: "bg-emerald-50 text-emerald-600",
-  red: "bg-red-50 text-red-600",
-  amber: "bg-amber-50 text-amber-600",
-  violet: "bg-violet-50 text-violet-600",
-  slate: "bg-slate-100 text-slate-600",
-} as const;
+import { TONES, type Tone } from "@/utils/tones";
 
 export function StatCard({
   label,
   value,
   icon: Icon,
-  accent = "blue",
+  tone = "green",
   hint,
   loading,
+  delay = 0,
 }: {
   label: string;
   value: number | string;
   icon: LucideIcon;
-  accent?: keyof typeof accents;
+  tone?: Tone;
   hint?: string;
   loading?: boolean;
+  /** Stagger for the entrance animation, in ms. */
+  delay?: number;
 }) {
+  const t = TONES[tone];
   return (
-    <Card className="p-4">
+    <Card className="card-lift animate-rise-in p-5 sm:p-6" style={{ animationDelay: `${delay}ms` }}>
       <div className="flex items-start justify-between gap-3">
-        <div className="min-w-0">
-          <p className="truncate text-sm font-medium text-slate-500">{label}</p>
-          {loading ? (
-            <Skeleton className="mt-2 h-7 w-14" />
-          ) : (
-            <p className="mt-1 text-2xl font-semibold tabular-nums tracking-tight text-slate-900">{value}</p>
-          )}
-          {hint && <p className="mt-0.5 truncate text-xs text-slate-500">{hint}</p>}
-        </div>
-        <span className={cn("flex h-9 w-9 shrink-0 items-center justify-center rounded-lg", accents[accent])}>
-          <Icon className="h-[18px] w-[18px]" />
+        <p className="truncate text-[15px] font-medium text-slate-600">{label}</p>
+        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl" style={{ backgroundColor: t.soft, color: t.fg }}>
+          <Icon className="h-5 w-5" />
         </span>
       </div>
+      {loading ? (
+        <Skeleton className="mt-3 h-10 w-16" />
+      ) : (
+        <p className="mt-2 font-display text-4xl font-bold tabular-nums tracking-tight text-slate-900 sm:text-[44px] sm:leading-[1.1]">{value}</p>
+      )}
+      {hint && (
+        <p className="mt-2 flex items-center gap-1.5 truncate text-sm font-medium" style={{ color: TONES.green.fg }}>
+          <TrendingUp className="h-3.5 w-3.5 shrink-0" />
+          {hint}
+        </p>
+      )}
     </Card>
   );
 }

@@ -2,11 +2,11 @@ import { forwardRef, type InputHTMLAttributes, type SelectHTMLAttributes, type T
 import { cn } from "@/utils/cn";
 
 const base =
-  "w-full rounded-lg border bg-white px-3 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 " +
+  "w-full rounded-xl border bg-card px-3 text-sm text-slate-900 shadow-sm transition-colors placeholder:text-slate-400 " +
   "focus:outline-none focus:ring-2 focus:ring-brand-500/30 focus:border-brand-500 disabled:bg-slate-50 disabled:text-slate-500";
 
 function stateClass(invalid?: boolean) {
-  return invalid ? "border-red-400 focus:border-red-500 focus:ring-red-500/20" : "border-slate-300";
+  return invalid ? "border-red-400 focus:border-red-500 focus:ring-red-500/20" : "border-border";
 }
 
 type WithInvalid = { invalid?: boolean };

@@ -61,8 +61,8 @@ export function GlobalSearch() {
   };
 
   return (
-    <div ref={rootRef} className="relative w-full max-w-md">
-      <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+    <div ref={rootRef} className="relative w-full max-w-xl">
+      <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-slate-500" />
       <input
         ref={inputRef}
         type="search"
@@ -76,7 +76,7 @@ export function GlobalSearch() {
         onKeyDown={onKeyDown}
         placeholder="Search leads by name, email or phone"
         aria-label="Search leads"
-        className="h-10 w-full rounded-lg border border-slate-200 bg-slate-50 pl-9 pr-3 text-sm placeholder:text-slate-400 focus:border-brand-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-500/20"
+        className="h-11 w-full rounded-full border border-border bg-card pl-11 pr-4 text-[15px] shadow-sm placeholder:text-slate-500 focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20"
       />
       {open && term.trim().length >= 2 && (
         <div className="animate-pop-in absolute left-0 right-0 z-40 mt-2 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">

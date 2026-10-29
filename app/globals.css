@@ -1,18 +1,135 @@
 @import "tailwindcss";
 
+/*
+ * RealCRM design system.
+ * Direction: warm paper canvas, deep ink-teal sidebar, emerald primary.
+ * Display face: Space Grotesk. Body face: Manrope.
+ * The slate and brand scales are remapped onto this palette so every screen picks it up.
+ */
+
 @theme inline {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-brand-50: #eef4ff;
-  --color-brand-100: #dbe6fe;
-  --color-brand-200: #bfd3fe;
-  --color-brand-500: #3b6ef5;
-  --color-brand-600: #2554e8;
-  --color-brand-700: #1d43c9;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-manrope), ui-sans-serif, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-active: var(--sidebar-active);
+  --color-sidebar-hover: var(--sidebar-hover);
+  --color-sidebar-border: var(--sidebar-border);
+
+  --color-status-new: var(--status-new);
+  --color-status-new-soft: var(--status-new-soft);
+  --color-status-interested: var(--status-interested);
+  --color-status-interested-soft: var(--status-interested-soft);
+  --color-status-visit: var(--status-visit);
+  --color-status-visit-soft: var(--status-visit-soft);
+  --color-status-negotiation: var(--status-negotiation);
+  --color-status-negotiation-soft: var(--status-negotiation-soft);
+  --color-status-won: var(--status-won);
+  --color-status-won-soft: var(--status-won-soft);
+  --color-status-lost: var(--status-lost);
+  --color-status-lost-soft: var(--status-lost-soft);
+  --color-status-followup: var(--status-followup);
+  --color-status-followup-soft: var(--status-followup-soft);
+  --color-status-neutral: var(--status-neutral);
+  --color-status-neutral-soft: var(--status-neutral-soft);
+
+  --color-brand-50: oklch(0.96 0.03 168);
+  --color-brand-100: oklch(0.93 0.045 168);
+  --color-brand-200: oklch(0.87 0.07 168);
+  --color-brand-500: oklch(0.58 0.11 168);
+  --color-brand-600: oklch(0.51 0.105 168);
+  --color-brand-700: oklch(0.44 0.095 168);
+
+  --color-slate-50: oklch(0.972 0.008 95);
+  --color-slate-100: oklch(0.945 0.01 105);
+  --color-slate-200: oklch(0.9 0.012 100);
+  --color-slate-300: oklch(0.84 0.014 100);
+  --color-slate-400: oklch(0.66 0.02 210);
+  --color-slate-500: oklch(0.52 0.025 215);
+  --color-slate-600: oklch(0.44 0.027 215);
+  --color-slate-700: oklch(0.36 0.028 218);
+  --color-slate-800: oklch(0.3 0.027 220);
+  --color-slate-900: oklch(0.25 0.025 220);
+  --color-slate-950: oklch(0.2 0.022 220);
 }
 
-body {
-  @apply bg-slate-50 text-slate-900;
+:root {
+  --background: oklch(0.972 0.008 95);
+  --foreground: oklch(0.25 0.025 220);
+  --card: oklch(0.997 0.003 95);
+  --primary: oklch(0.51 0.105 168);
+  --primary-foreground: oklch(0.985 0.005 120);
+  --muted: oklch(0.945 0.01 105);
+  --muted-foreground: oklch(0.52 0.025 215);
+  --accent: oklch(0.93 0.025 105);
+  --border: oklch(0.9 0.012 100);
+
+  --status-new: oklch(0.58 0.13 245);
+  --status-new-soft: oklch(0.94 0.03 245);
+  --status-interested: oklch(0.54 0.15 300);
+  --status-interested-soft: oklch(0.94 0.03 300);
+  --status-visit: oklch(0.6 0.19 5);
+  --status-visit-soft: oklch(0.94 0.035 5);
+  --status-negotiation: oklch(0.66 0.14 70);
+  --status-negotiation-soft: oklch(0.95 0.05 90);
+  --status-won: oklch(0.55 0.12 160);
+  --status-won-soft: oklch(0.94 0.05 160);
+  --status-lost: oklch(0.55 0.2 25);
+  --status-lost-soft: oklch(0.94 0.03 25);
+  --status-followup: oklch(0.58 0.11 200);
+  --status-followup-soft: oklch(0.94 0.025 200);
+  --status-neutral: oklch(0.5 0.025 215);
+  --status-neutral-soft: oklch(0.94 0.01 105);
+
+  /* Dark ink-teal sidebar */
+  --sidebar: oklch(0.26 0.028 215);
+  --sidebar-foreground: oklch(0.95 0.01 110);
+  --sidebar-muted: oklch(0.72 0.02 210);
+  --sidebar-active: oklch(0.55 0.1 168);
+  --sidebar-hover: oklch(0.32 0.03 215);
+  --sidebar-border: oklch(1 0 0 / 8%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--primary) 25%, transparent);
+  }
+}
+
+@utility card-lift {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 12px 32px -12px color-mix(in oklab, var(--foreground) 18%, transparent),
+      0 2px 8px -2px color-mix(in oklab, var(--foreground) 8%, transparent);
+  }
 }
 
 @keyframes slide-in-right {
@@ -27,6 +144,10 @@ body {
   from { opacity: 0; transform: translateY(4px) scale(0.98); }
   to { opacity: 1; transform: none; }
 }
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
 
 @utility animate-slide-in-right {
   animation: slide-in-right 260ms cubic-bezier(0.22, 1, 0.36, 1);
@@ -36,6 +157,9 @@ body {
 }
 @utility animate-pop-in {
   animation: pop-in 160ms ease-out;
+}
+@utility animate-rise-in {
+  animation: rise-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -9,7 +9,7 @@ import { UserMenu } from "./user-menu";
 export function Header() {
   const setMobileOpen = useUIStore((s) => s.setMobileSidebarOpen);
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-3 border-b border-slate-200 bg-white/90 px-4 backdrop-blur sm:px-6">
+    <header className="sticky top-0 z-30 flex h-[72px] items-center gap-3 border-b border-border bg-background/85 px-4 backdrop-blur-md sm:px-6 lg:px-10">
       <button
         type="button"
         onClick={() => setMobileOpen(true)}
@@ -21,7 +21,7 @@ export function Header() {
       <div className="flex-1">
         <GlobalSearch />
       </div>
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-2 sm:gap-3">
         <NotificationsMenu />
         <UserMenu />
       </div>

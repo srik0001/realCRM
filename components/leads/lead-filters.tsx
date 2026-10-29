@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Filter, X } from "lucide-react";
+import { ChevronDown, Search, SlidersHorizontal, X } from "lucide-react";
 import { useCurrentUser } from "@/lib/auth/auth-context";
 import { useCrmData } from "@/lib/database/crm-data-context";
 import { Button } from "@/components/ui/button";
@@ -34,7 +34,9 @@ export function LeadFiltersBar({ value, onChange, hideSearch }: Props) {
       <div className="flex flex-col gap-2 sm:flex-row">
         {!hideSearch && (
           <div className="relative flex-1">
+            <Search className="pointer-events-none absolute left-4 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-slate-500" />
             <Input
+              className="h-12 pl-11 text-[15px]"
               type="search"
               value={value.q}
               onChange={(e) => set({ q: e.target.value })}
@@ -44,12 +46,13 @@ export function LeadFiltersBar({ value, onChange, hideSearch }: Props) {
           </div>
         )}
         <div className="flex gap-2">
-          <Button variant="outline" onClick={() => setExpanded((e) => !e)} aria-expanded={expanded}>
-            <Filter className="h-4 w-4" />
+          <Button variant="outline" className={hideSearch ? undefined : "h-12! px-5"} onClick={() => setExpanded((e) => !e)} aria-expanded={expanded}>
+            <SlidersHorizontal className="h-4 w-4" />
             Filters
             {count > 0 && (
-              <span className="rounded-full bg-brand-600 px-1.5 text-[11px] font-semibold text-white">{count}</span>
+              <span className="rounded-full bg-primary px-1.5 text-[11px] font-semibold text-primary-foreground">{count}</span>
             )}
+            <ChevronDown className={cn("h-4 w-4 text-slate-500 transition-transform", expanded && "rotate-180")} />
           </Button>
           {count > 0 && (
             <Button variant="ghost" onClick={() => onChange({ ...EMPTY_FILTERS, q: value.q })}>
@@ -61,7 +64,7 @@ export function LeadFiltersBar({ value, onChange, hideSearch }: Props) {
 
       <div className={cn("grid transition-[grid-template-rows] duration-200", expanded ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
         <div className="overflow-hidden">
-          <div className="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3 rounded-2xl border border-border bg-card p-4 shadow-sm sm:grid-cols-2 lg:grid-cols-4">
             <FilterSelect label="Project" value={value.projectId} onChange={(v) => set({ projectId: v })}
               options={projects.items.map((p) => [p.id, p.name])} />
             <FilterSelect label="Status" value={value.statusId} onChange={(v) => set({ statusId: v })}

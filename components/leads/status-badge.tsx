@@ -3,5 +3,5 @@ import type { LeadStatus } from "@/types";
 
 export function StatusBadge({ status }: { status?: LeadStatus }) {
   if (!status) return <Badge>Unknown</Badge>;
-  return <Badge tone={status.color}>{status.name}</Badge>;
+  return <Badge tone={status.color} dot>{status.name}</Badge>;
 }

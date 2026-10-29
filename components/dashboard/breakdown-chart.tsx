@@ -1,49 +1,56 @@
-import { Card, CardHeader } from "@/components/ui/card";
+import type { ReactNode } from "react";
+import { Card, PanelHeader } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export type BreakdownRow = { id: string; label: string; value: number };
+export type BreakdownRow = { id: string; label: string; value: number; color?: string };
 
-/** Horizontal bar breakdown; bars are scaled to the largest value. */
+/** Horizontal bar breakdown; each bar shows the row's share of the total. */
 export function BreakdownChart({
   title,
+  description,
   rows,
   loading,
   total,
+  action,
 }: {
   title: string;
+  description?: string;
   rows: BreakdownRow[];
   loading?: boolean;
   total?: number;
+  action?: ReactNode;
 }) {
-  const max = Math.max(1, ...rows.map((r) => r.value));
   const sum = total ?? rows.reduce((s, r) => s + r.value, 0);
   return (
-    <Card>
-      <CardHeader title={title} />
-      <div className="space-y-3 px-5 py-4">
+    <Card className="card-lift flex flex-col">
+      <PanelHeader title={title} description={description} action={action} />
+      <div className="flex-1 space-y-4 px-6 pb-6 pt-5">
         {loading ? (
-          Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-6" />)
+          Array.from({ length: 4 }).map((_, i) => <Skeleton key={i} className="h-8" />)
         ) : rows.length === 0 || sum === 0 ? (
-          <p className="py-6 text-center text-sm text-slate-500">No data for the current filters.</p>
+          <p className="py-10 text-center text-sm text-slate-500">No data for the current filters.</p>
         ) : (
-          rows.map((r) => (
-            <div key={r.id}>
-              <div className="mb-1 flex items-baseline justify-between gap-3 text-sm">
-                <span className="truncate text-slate-700">{r.label}</span>
-                <span className="shrink-0 tabular-nums text-slate-900">
-                  <span className="font-semibold">{r.value}</span>
-                  <span className="ml-1.5 text-xs text-slate-500">{Math.round((r.value / sum) * 100)}%</span>
-                </span>
+          rows.map((r) => {
+            const pct = Math.round((r.value / sum) * 100);
+            return (
+              <div key={r.id} className="group" title={`${r.label}: ${r.value} (${pct}%)`}>
+                <div className="mb-1.5 flex items-baseline justify-between gap-3">
+                  <span className="truncate text-[15px] font-medium text-slate-800">{r.label}</span>
+                  <span className="shrink-0 tabular-nums text-sm text-slate-500">
+                    {r.value}
+                    <span className="ml-1.5 font-semibold text-slate-900">{pct}%</span>
+                  </span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-slate-100">
+                  <div
+                    className="h-full rounded-full transition-[width,filter] duration-700 ease-out group-hover:brightness-110"
+                    style={{ width: `${Math.max(pct, 2)}%`, backgroundColor: r.color ?? "var(--primary)" }}
+                    role="presentation"
+                  />
+                </div>
               </div>
-              <div className="h-2 overflow-hidden rounded-full bg-slate-100">
-                <div
-                  className="h-full rounded-full bg-brand-500 transition-[width] duration-500"
-                  style={{ width: `${(r.value / max) * 100}%` }}
-                  role="presentation"
-                />
-              </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </Card>

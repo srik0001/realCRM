@@ -22,6 +22,8 @@ export type NavItem = {
   icon: LucideIcon;
   permission: Permission;
   children?: NavItem[];
+  /** Pinned to the lower part of the sidebar, below the main workspace links. */
+  bottom?: boolean;
 };
 
 export const NAV_ITEMS: NavItem[] = [
@@ -36,12 +38,13 @@ export const NAV_ITEMS: NavItem[] = [
     label: "Masters",
     icon: Database,
     permission: "masters:manage",
+    bottom: true,
     children: [
       { label: "Lead Statuses", href: "/masters/statuses", icon: ListChecks, permission: "masters:manage" },
       { label: "Sources", href: "/masters/sources", icon: Megaphone, permission: "masters:manage" },
       { label: "Sub-Sources", href: "/masters/sub-sources", icon: Share2, permission: "masters:manage" },
     ],
   },
-  { label: "Reports", href: "/reports", icon: BarChart3, permission: "reports:view" },
-  { label: "Settings", href: "/settings", icon: Settings, permission: "settings:view" },
+  { label: "Reports", href: "/reports", icon: BarChart3, permission: "reports:view", bottom: true },
+  { label: "Settings", href: "/settings", icon: Settings, permission: "settings:view", bottom: true },
 ];

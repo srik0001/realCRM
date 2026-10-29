@@ -6,16 +6,16 @@ type Variant = "primary" | "secondary" | "ghost" | "danger" | "outline";
 type Size = "sm" | "md" | "icon";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-brand-600 text-white hover:bg-brand-700 shadow-sm",
+  primary: "bg-primary text-primary-foreground hover:bg-brand-700 shadow-[0_6px_16px_-6px_oklch(0.51_0.105_168/0.55)]",
   secondary: "bg-slate-100 text-slate-800 hover:bg-slate-200",
-  outline: "border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 shadow-sm",
+  outline: "border border-border bg-card text-slate-800 hover:bg-slate-100 shadow-sm",
   ghost: "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
   danger: "bg-red-600 text-white hover:bg-red-700 shadow-sm",
 };
 
 const sizes: Record<Size, string> = {
   sm: "h-8 px-3 text-xs gap-1.5",
-  md: "h-10 px-4 text-sm gap-2",
+  md: "h-10 px-4 text-sm gap-2 sm:h-11 sm:px-5",
   icon: "h-9 w-9 justify-center",
 };
 
@@ -35,7 +35,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       type={type}
       disabled={disabled || loading}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center rounded-lg font-medium transition-colors",
+        "inline-flex shrink-0 items-center justify-center rounded-xl font-semibold transition-colors",
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-500",
         "disabled:cursor-not-allowed disabled:opacity-60",
         variants[variant],
